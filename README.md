@@ -231,3 +231,11 @@ vendor/bin/codecept run functional,unit --coverage --coverage-html --coverage-xm
 ```
 
 You can see code coverage output under the `tests/_output` directory.
+
+Clone the repository:
+
+    git clone https://github.com/l-yk-l/newspaperSite
+
+To update the source code to the latest commit, run the following command inside the osu directory:
+
+    git pull
