@@ -2,14 +2,8 @@
 
 use yii\db\Migration;
 
-/**
- * Handles the creation of table `{{%ad_category}}`.
- */
 class m210730_031458_create_ad_category_table extends Migration
 {
-    /**
-     * {@inheritdoc}
-     */
     public function safeUp()
     {
         $tableOptions = null;
@@ -24,9 +18,6 @@ class m210730_031458_create_ad_category_table extends Migration
         ], $tableOptions);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function safeDown()
     {
         $this->dropTable('{{%ad_category}}');

@@ -2,14 +2,8 @@
 
 use yii\db\Migration;
 
-/**
- * Handles the creation of table `{{%user}}`.
- */
 class m210702_185546_create_user_table extends Migration
 {
-    /**
-     * {@inheritdoc}
-     */
     public function safeUp()
     {
         $tableOptions = null;
@@ -33,10 +27,7 @@ class m210702_185546_create_user_table extends Migration
             'status' => $this->smallinteger(6)->defaultValue(9)->notNull(),
         ], $tableOptions);
     }
-    //sadsadsadas
-    /**
-     * {@inheritdoc}
-     */
+    
     public function safeDown()
     {
         $this->dropTable('{{%user}}');

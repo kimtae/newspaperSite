@@ -2,14 +2,8 @@
 
 use yii\db\Migration;
 
-/**
- * Handles the creation of table `{{%news}}`.
- */
 class m210729_113835_create_news_table extends Migration
 {
-    /**
-     * {@inheritdoc}
-     */
     public function safeUp()
     {
         $tableOptions = null;
@@ -27,9 +21,6 @@ class m210729_113835_create_news_table extends Migration
         ], $tableOptions);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function safeDown()
     {
         $this->dropTable('{{%news}}');
