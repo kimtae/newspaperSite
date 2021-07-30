@@ -3,16 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\AdCategory;
-use app\models\AdCategorySearch;
+use app\models\Advertisements;
+use app\models\AdvertisementsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * AdCategoryController implements the CRUD actions for AdCategory model.
+ * AdvertisementsController implements the CRUD actions for Advertisements model.
  */
-class AdCategoryController extends Controller
+class AdvertisementsController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -30,12 +30,12 @@ class AdCategoryController extends Controller
     }
 
     /**
-     * Lists all AdCategory models.
+     * Lists all Advertisements models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new AdCategorySearch();
+        $searchModel = new AdvertisementsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class AdCategoryController extends Controller
     }
 
     /**
-     * Displays a single AdCategory model.
+     * Displays a single Advertisements model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,13 +58,13 @@ class AdCategoryController extends Controller
     }
 
     /**
-     * Creates a new AdCategory model.
+     * Creates a new Advertisements model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new AdCategory();
+        $model = new Advertisements();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -76,7 +76,7 @@ class AdCategoryController extends Controller
     }
 
     /**
-     * Updates an existing AdCategory model.
+     * Updates an existing Advertisements model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -96,7 +96,7 @@ class AdCategoryController extends Controller
     }
 
     /**
-     * Deletes an existing AdCategory model.
+     * Deletes an existing Advertisements model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -110,15 +110,15 @@ class AdCategoryController extends Controller
     }
 
     /**
-     * Finds the AdCategory model based on its primary key value.
+     * Finds the Advertisements model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return AdCategory the loaded model
+     * @return Advertisements the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = AdCategory::findOne($id)) !== null) {
+        if (($model = Advertisements::findOne($id)) !== null) {
             return $model;
         }
 
