@@ -232,7 +232,7 @@ vendor/bin/codecept run functional,unit --coverage --coverage-html --coverage-xm
 
 You can see code coverage output under the `tests/_output` directory.
 
-### Downloading the source code
+### Getting started
 
 Clone the repository:
 
@@ -241,3 +241,7 @@ Clone the repository:
 To update the source code to the latest commit, run the following command inside the project directory:
 
     git pull
+
+RBAC initialization
+
+    yii migrate --migrationPath=@yii/rbac/migrations
