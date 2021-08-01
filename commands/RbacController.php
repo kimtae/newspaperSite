@@ -50,7 +50,7 @@ class RbacController extends Controller
         $auth->addChild($admin, $adManage);
         //$auth->addChild($admin, $default_user); //тут пока хз нужно ли ему иметь разрешения обычного юзера. Например создание объявлений.
 
-        $auth->assign($admin, 1);
-        $auth->assign($default_user, 17);
+        $auth->assign($admin, 1); // задаешь роль админа юзеру с айди 1
+        //$auth->assign($default_user, 2); //задаешь дефолтную роль юзеру с айди 2
     }
 }
