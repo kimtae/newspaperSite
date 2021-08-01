@@ -19,6 +19,6 @@ class AdOwnerRule extends Rule
      */
     public function execute($user, $item, $params)
     {
-        return isset($params['advertisement']) ? $params['advertisement']->author_id == Yii::$app->user->id : false;
+        return isset($params['ad']) ? $params['ad']->author_id == Yii::$app->user->id : false;
     }
 }

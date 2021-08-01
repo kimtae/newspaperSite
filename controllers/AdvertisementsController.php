@@ -35,6 +35,15 @@ class AdvertisementsController extends Controller
      */
     public function actionIndex()
     {
+        // if(!Yii::$app->user->can('adCreate')){
+        //     if(!Yii::$app->user->can('adManage')){
+        //         throw new NotFoundHttpException('Запрошенная страница не существует.');
+        //     } else {
+        //         // изменить датапровайдер под админа, чтобы все объявления показывались
+        //     }
+        //     // а тут дефолтный датапровайдер для обычного юзера 
+        // }
+
         $searchModel = new AdvertisementsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -52,6 +61,10 @@ class AdvertisementsController extends Controller
      */
     public function actionView($id)
     {
+        if(!Yii::$app->user->can('adManage', ['ad' => $model])){
+            throw new NotFoundHttpException('Запрошенная страница не существует.');
+        }
+
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -66,6 +79,10 @@ class AdvertisementsController extends Controller
     {
         $model = new Advertisements();
 
+        if(!Yii::$app->user->can('adCreate', ['ad' => $model])){
+            throw new NotFoundHttpException('Запрошенная страница не существует.');
+        }
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -86,6 +103,10 @@ class AdvertisementsController extends Controller
     {
         $model = $this->findModel($id);
 
+        if(!Yii::$app->user->can('adManage', ['ad' => $model])){
+            throw new NotFoundHttpException('Запрошенная страница не существует.');
+        }
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -104,7 +125,13 @@ class AdvertisementsController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+
+        if(!Yii::$app->user->can('adManage', ['ad' => $model])){
+            throw new NotFoundHttpException('Запрошенная страница не существует.');
+        }
+
+        $model->delete();
 
         return $this->redirect(['index']);
     }
@@ -122,6 +149,6 @@ class AdvertisementsController extends Controller
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException('Запрошенная страница не существует.');
     }
 }
