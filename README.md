@@ -242,6 +242,8 @@ To update the source code to the latest commit, run the following command inside
 
     git pull
 
-RBAC initialization
+Launch RBAC:
 
     yii migrate --migrationPath=@yii/rbac/migrations
+
+    yii rbac/init
