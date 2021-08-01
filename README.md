@@ -247,3 +247,5 @@ Launch RBAC:
     yii migrate --migrationPath=@yii/rbac/migrations
 
     yii rbac/init
+
+To connect the mail, add a file swiftmailer-transport.php, which returns an array of smpt-transport data
