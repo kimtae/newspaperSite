@@ -10,43 +10,47 @@ class RbacController extends Controller
     {
         $auth = Yii::$app->authManager;
 
-        //если понадобятся правила, то вот пример их инициализации
-        //$example_rule = new \app\rbac\ExampleEmptyRule;
-        //$auth->add($example_rule);
+        // Правило проверки принадлежности объявления юзеру
+        $adOwnerRule = new \app\rbac\AdOwnerRule;
+        $auth->add($adOwnerRule);
 
-        //$example_permission = $auth->createPermission('example_permission');
-        //$example_permission->ruleName = $example_rule->name;
-        //$auth->add($example_permission);
+        // Разрешение на управление категориями - Read Update Delete
+        $categoryManage = $auth->createPermission('categoryManage');
+        $categoryManage->description = 'Управление категориями';
+        $auth->add($categoryManage);
 
-        $create_ad = $auth->createPermission('create_ad');
-        $create_ad->description = 'Создание объявления';
-        $auth->add($create_ad);
+        // Разрешение на создание объявления
+        $adCreate = $auth->createPermission('adCreate');
+        $adCreate->description = 'Создание объявления';
+        $auth->add($adCreate);
 
-        // хз понадобится ли функционал редактироания объявлений для юзеверей
-        // $update_ad = $auth->createPermission('update_ad');
-        // $update_ad->description = 'Update ad';
-        // $auth->add($update_ad);
+        // Разрешение на управление всеми объявлениями - Read Update Delete
+        $adManage = $auth->createPermission('adManage');
+        $adManage->description = 'Управление объявлениями';
+        $auth->add($adManage);
 
-        $manage_category = $auth->createPermission('manage_category');
-        $manage_category->description = 'Управление категориями';
-        $auth->add($manage_category);
+        // Разрешение на управление собственными объявлениями - Read Update Delete
+        $adOwnManage = $auth->createPermission('adOwnManage');
+        $adOwnManage->ruleName = $adOwnerRule->name;
+        $auth->add($adOwnManage);
 
-        $manage_ad = $auth->createPermission('manage_ad');
-        $manage_ad->description = 'Управление объявлениями';
-        $auth->add($manage_ad);
+        // Производим наследование. Теперь manageOwnBook можно вызывать через manageBook
+        $auth->addChild($adOwnManage, $adManage);
 
-        // обычный юзер
+        // Роль обычного юзера
         $default_user = $auth->createRole('default_user');
         $auth->add($default_user);
-        $auth->addChild($default_user, $create_ad);
+        $auth->addChild($default_user, $adCreate);
+        $auth->addChild($default_user, $adOwnManage);
 
-        // админ
+        // Роль админа
         $admin = $auth->createRole('admin');
         $auth->add($admin);
-        $auth->addChild($admin, $manage_category);
-        $auth->addChild($admin, $manage_ad);
-        //$auth->addChild($admin, $author);
+        $auth->addChild($admin, $categoryManage);
+        $auth->addChild($admin, $adManage);
+        //$auth->addChild($admin, $default_user); //тут пока хз нужно ли ему иметь разрешения обычного юзера. Например создание объявлений.
 
-        $auth->assign($admin, 1);
+        $auth->assign($admin, 1); // задаешь роль админа юзеру с айди 1
+        //$auth->assign($default_user, 2); //задаешь дефолтную роль юзеру с айди 2
     }
 }
